@@ -1,6 +1,7 @@
 #include "Py2Plus.h"
 #include <iostream>
 #include "Files.h"
+#include "Scanner.h"
 #include <QMessageBox>
 #include <string>
 using namespace std;
@@ -11,9 +12,14 @@ Py2Plus::Py2Plus(QWidget *parent)
     ui.setupUi(this);
 	
 	// ------------------ THIS PART IS USED FOR TESTING PURPOSES ONLY ------------------
-	Files* file = new Files("test.py", 'r');
+	Files* file = new Files("source_code.txt", 'r');
     file->readFromFile();
-    QMessageBox::information(this, "Button Clicked", file->getCode().c_str());
+	Scanner scanner(file->getCode());
+	scanner.tokenize();
+	string output = "";
+	for (TokenInfo token : scanner.tokenList)
+		output += "[" + token.token + "]\t" + token.tokenValue + "\n";
+    QMessageBox::information(this, "Button Clicked", output.c_str());
 	// ---------------------------------------------------------------------------------
 }
 
