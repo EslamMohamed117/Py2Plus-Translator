@@ -1,0 +1,37 @@
+<statement> 	   -> <if_statement> | <for_statement> | <while_statement> | <do_while_statement>
+
+<if_statement>       -> "if" <expression> ":" <suite> <elif_statement>* <else_statement>?
+
+<elif_statement>     -> "elif" <expression> ":" <suite>
+
+<else_statement>     -> "else" ":" <suite>
+
+<for_statement> 	   -> "for" <target> "in" <expression> ":" <suite> <else_statement>?
+
+<while_statement>    -> "while" <expression> ":" <suite> <else_statement>?
+
+<do_while_statement> -> "while" ":" <suite> "until" <expression>
+
+<suite> 	         -> <statement> | <simple_statement> | <suite> <statement>
+
+<simple_statement>   -> <expression> | <assignment>
+
+<assignment> 	   -> <target> <assignment_operator> <expression>
+
+<target> 		   -> <name>
+
+<expression> 	   -> <term> | <expression> <add_operator> <term>
+
+<term> 		   -> <factor> | <term> <mult_operator> <factor>
+
+<factor> 		   -> <name> | <number> | "(" <expression> ")" | <unary_operator> <factor>
+
+<name> 		   -> [a-zA-Z_][a-zA-Z0-9_]*
+
+<number> 		   -> [0-9]+
+
+<add_operator> 	   -> "+" | "-"
+
+<mult_operator>      -> "*" | "/" | "%"
+
+<unary_operator>     -> "+" | "-"

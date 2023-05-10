@@ -1,0 +1,38 @@
+stmts 	-> stmt stmts | e
+stmt  	-> if_stmt | for_stmt | while_stmt | switch_stmt | doWhile_stmt | assign_stmt
+if_stmt	-> if( cond ) { stmts } op_if
+op_if		-> else { stmts } | e
+for_stmt	-> for ( for_init cond; for_step ) { stmts }
+for_init	-> assign_stmt 
+cond		-> id operator digit | id
+for_step 	-> id operator digit	// x += 1
+while_stmt  -> while( cond ) { stmts }
+switch_stmt	-> switch( id ) { case_list }
+case_list	-> case_t case_list | case_t
+case_t	-> case digits : stmts | default : stmts
+doWhile_stmt-> do { stmts } while ( cond );
+assign_stmt -> id = exp ;
+exp		-> exp + term | exp - term | term
+term 		-> term * factor | term / factor | factor
+factor	-> ( exp ) | id | digits 
+digits 	-> digit digits | e
+digit 	-> 0 | 1 |...|9
+operator	-> == | <= | > |......
+id		-> a | b | c |...|z
+
+
+============================================================================================================================
+
+| Non-terminal  | First Set                                | Follow Set                               | Production Rules                                                                                       |
+| ------------- | ---------------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| \<if_stmt>    | if                                       | ;                                        | if ( \<expression> ) \<statement> [ else \<statement> ]                                                 |
+| \<while_stmt> | while                                    | ;                                        | while ( \<expression> ) \<statement>                                                                   |
+| \<switch_stmt>| switch                                   | ;                                        | switch ( \<expression> ) { \<case_list> }                                                               |
+| \<case_list>  | case, default                            | }                                        | \<case> \<case_list> \| \<case>                                                                          |
+| \<case>       | case, default                            | case, default, }                         | case \<constant> : \<statement> \| default : \<statement>                                              |
+| \<doWhile_stmt>| do                                       | ;                                        | do \<statement> while ( \<expression> ) ;                                                               |
+| \<for_stmt>   | for                                      | ;                                        | for ( [\<expression>] ; [\<expression>] ; [\<expression>] ) \<statement>                                |
+| \<expression> | any valid C++ expression                 | ), ;                                     | any valid C++ expression                                                                               |
+| \<statement>  | any valid C++ statement except \<case>   | }, else                                  | \<if_stmt> \| \<while_stmt> \| \<switch_stmt> \| \<doWhile_stmt> \| \<for_stmt> \| any valid C++ statement |
+
+  
