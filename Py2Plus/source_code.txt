@@ -1,2 +1,2 @@
-for x in arr:
-	print(x)
+if abc > ax:
+  print("b is greater than a")

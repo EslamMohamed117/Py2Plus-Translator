@@ -1,15 +1,16 @@
 #pragma once
 
 
-
-
 class Parser
 {
 private:
-    TokenInfo lookAheadToken;
+    string py2PlusCode;
+    string lookAheadToken;
+    vector<TokenInfo> lookAheadTokenList;
+    int currentToken;
 
-
-    void Match();                   /* Match the look-ahead token with the current token */
+    void IncrementToken();          /* Increment the token */
+    void Match(string token);                   /* Match the look-ahead token with the current token */
 
     /* Statement -> If_Statement | For_Statement | While_Statement | DoWhile_Statement | Assignment_Statement */
     /* Statements that we have */
@@ -29,13 +30,16 @@ private:
     void Assignment_Statement();
     
     /* Names, numbers and operators */
-    void NameIdentifier();          /* Identifier -> A, B, C,..., Z */
+    bool NameIdentifier(string id);          /* Identifier -> A, B, C,..., Z */
     void NumberIdentifier();        /* Number -> 0, 1, 2,..., 9 */
     void Operator();                /* Operator -> +, -, *, /, % */
     void ConditionalOperator();     /* Conditional Operator -> <, >, <=, >=, ==, != */
     //void LogicalOperator();         /* Logical Operator -> and, or, not */
 
+    /* Error handling */
+    void Error();
+
 public:
-    Parser() { /* Empty??? */ }
-    void Parse();
+    Parser(vector<TokenInfo> tokenList);
+    string Parse();
 };

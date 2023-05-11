@@ -365,3 +365,6 @@ FodyWeavers.xsd
 # Project Configurations
 *.vcxproj
 *.vcxproj.filters
+
+# VsCode Files
+*.vscode
