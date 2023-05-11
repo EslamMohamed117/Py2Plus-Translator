@@ -7,18 +7,18 @@ using namespace boost;
 
 
 string code;
-bool Scanner::isoperator(char c) {
+bool Scanner::IsOperator(char c) {
     static const std::string operators = "+-*/%=><!&|^~";
     return operators.find(c) != std::string::npos;
 }
 
-bool Scanner::tokenize()
+bool Scanner::Tokenize()
 {
     try {
         char_separator<char> sep; // default constructed
         boostTokenizer tokenList(this->code, sep);
         for (boostTokenizer::iterator token_iter = tokenList.begin(); token_iter != tokenList.end(); ++token_iter)
-            this->tokenList.push_back(classifyToken(*token_iter));
+            this->tokenList.push_back(ClassifyToken(*token_iter));
         return true;
     }
     catch (const std::exception& e) {
@@ -28,7 +28,7 @@ bool Scanner::tokenize()
     }
 }
 
-TokenInfo Scanner::classifyToken(const std::string& tokenStr) {
+TokenInfo Scanner::ClassifyToken(const std::string& tokenStr) {
     if (tokenStr.empty()) {
         return { tokens[TOKEN_END_OF_FILE], "" };
     }
@@ -41,7 +41,7 @@ TokenInfo Scanner::classifyToken(const std::string& tokenStr) {
         return { tokens[TOKEN_WHITESPACE], tokenStr };
     }
 
-    if (!std::isalnum(c) && !isoperator(c) && c != '_') {
+    if (!std::isalnum(c) && !IsOperator(c) && c != '_') {
         return { tokens[TOKEN_INVALID], tokenStr };
     }
 
@@ -60,7 +60,7 @@ TokenInfo Scanner::classifyToken(const std::string& tokenStr) {
         return { tokens[TOKEN_STRING], value };
     }
 
-    if (isoperator(c)) {
+    if (IsOperator(c)) {
         return { tokens[TOKEN_OPERATOR], tokenStr };
     }
 
@@ -73,4 +73,9 @@ TokenInfo Scanner::classifyToken(const std::string& tokenStr) {
     }
 
     return { tokens[TOKEN_INVALID], tokenStr };
+}
+
+vector<TokenInfo> Scanner::GetTokenList()
+{
+    return this->tokenList;
 }

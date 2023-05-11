@@ -15,9 +15,9 @@ Py2Plus::Py2Plus(QWidget *parent)
 	Files* file = new Files("source_code.txt", 'r');
     file->readFromFile();
 	Scanner scanner(file->getCode());
-	scanner.tokenize();
+	scanner.Tokenize();
 	string output = "";
-	for (TokenInfo token : scanner.tokenList)
+	for (TokenInfo token : scanner.GetTokenList())
 		output += "[" + token.token + "]\t" + token.tokenValue + "\n";
     QMessageBox::information(this, "Button Clicked", output.c_str());
 	// ---------------------------------------------------------------------------------

@@ -88,10 +88,11 @@ class Scanner
 {
 private:
     std::string code;
-    bool isoperator(char c);
-public:
+    bool IsOperator(char c);
     std::vector<TokenInfo> tokenList;
+public:
     Scanner(std::string code) { this->code = code; }
-    bool tokenize();
-    TokenInfo classifyToken(const std::string& tokenStr);
+    bool Tokenize();
+    TokenInfo ClassifyToken(const std::string& tokenStr);
+	std::vector<TokenInfo> GetTokenList();
 };
