@@ -1,8 +1,10 @@
 <statement> 	   -> <if_statement> | <for_statement> | <while_statement> | <do_while_statement> | <assignment_statement>
 
-<if_statement>       -> "if" <expression_statement> ":" <statements> <elif_statement>* <else_statement>?
+<if_statement>       -> "if" <conditional_statement> ":" <statements> <if_opt_stmt>*
 
-<elif_statement>     -> "elif" <expression_statement> ":" <statements> | epslion
+<if_opt_stmt>			 -> <elif_statement> <if_opt_stmt> | <else_statement> | epslion
+
+<elif_statement>     -> "elif" <conditional_statement> ":" <statements> | epslion
 
 <else_statement>     -> "else" ":" <statements>
 
@@ -14,20 +16,26 @@
 
 <statements> 	         -> <statement> <statements> | epslion
 
-<assignment_statement> 	   -> <name_identifier> <assignment_operator> <expression_statement>
+<conditional_statement>  -> <expression_statement> <conditional_operator> <expression_statement>
 
-<expression_statement> 	   -> <term> | <expression_statement> <add_operator> <term>
+<assignment_statement> 	   -> <name_identifier> "=" <expression_statement>
 
-<term> 		   -> <factor> | <term> <mult_operator> <factor>
+<expression_statement> 	   -> <term_statement> <expression_rest>
 
-<factor> 		   -> <name> | <number_identifier> | "(" <expression_statement> ")" | <unary_operator> <factor>
+<expression_rest>		   -> <addsub_operator> <term_statement> <expression_rest> | epslion
+
+<term_statement> 		   		-> <factor_statement> <term_rest>
+
+<term_rest>		   -> <muldiv_operator> <factor_statement> <term_rest> | epslion
+
+<factor_statement> 		   -> <name_identifier> | <number_identifier> | "(" <expression_statement> ")"
 
 <name_identifier> 		   -> [a-zA-Z_][a-zA-Z0-9_]*
 
-<number_identifier> 		   -> [0-9]+
+<number_identifier> 		   -> -?[0-9]+.?[0-9]*
 
-<add_operator> 	   -> "+" | "-"
+<addsub_operator> 	   -> "+" | "-"
 
-<mult_operator>      -> "*" | "/" | "%"
+<muldiv_operator>      -> "*" | "/" | "%"
 
-<unary_operator>     -> "+" | "-"
+<conditional_operator>     -> "<" | ">" | "==" | "!=" | "<=" | ">="

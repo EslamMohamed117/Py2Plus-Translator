@@ -1,2 +1,7 @@
 if abc > ax:
-  print("b is greater than a")
+  ax = ax + 100
+  abc = abc + ax - 50
+elif abcd < abc:
+  abc = 0
+else:
+	HELLOWORLD = HELLOWORLD +1
