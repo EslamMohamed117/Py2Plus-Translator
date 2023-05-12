@@ -25,6 +25,7 @@ const std::string tokens[] = {
         "KEYWORD_DEF",
         "KEYWORD_IF",
         "KEYWORD_ELIF",
+		"KEYWORD_ELSE",
         "KEYWORD_PRINT",
         "KEYWORD_RETURN" };
 
@@ -41,6 +42,7 @@ const std::map<std::string, std::string> keywords = {
        {"def"       ,      "KEYWORD_DEF"      },
        {"if"        ,       "KEYWORD_IF"      },
        {"elif"      ,     "KEYWORD_ELIF"      },
+       {"else"      ,     "KEYWORD_ELSE"      },
        {"print"     ,    "KEYWORD_PRINT"      },
        {"return"    ,   "KEYWORD_RETURN"      }
 };
@@ -66,6 +68,7 @@ enum Token {
     KEYWORD_DEF,
     KEYWORD_IF,
     KEYWORD_ELIF,
+	KEYWORD_ELSE,
     KEYWORD_PRINT,
     KEYWORD_RETURN,
     //    KEYWORD_GLOBAL,
