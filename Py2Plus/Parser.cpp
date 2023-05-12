@@ -9,6 +9,9 @@ using namespace std;
 #include "Parser.h"
 
 
+/************************************************************************************************
+ ***************************************** Match **********************************************
+************************************************************************************************/
 
 /* Match the look-ahead token with the current token */
 void Parser::Match(string token)
@@ -31,6 +34,9 @@ void Parser::IncrementToken()
         return;
 }
 
+/************************************************************************************************
+ ************************************** Statements *********************************************
+************************************************************************************************/
 
 /* Statements: 
  * <statements>   -> <statement> <statements> | epslion
@@ -67,7 +73,7 @@ void Parser::Statement()
     else if (lookAheadToken == "for")
         ;//For_Statement();
     else if (lookAheadToken == "while")
-        ;//While_Statement();
+        While_Statement();
     else if (lookAheadToken == "do")
         ;//DoWhile_Statement();
     else if (NameIdentifier(lookAheadToken) && (lookAheadTokenList[currentToken].token == tokens[TOKEN_STRING]) )
@@ -77,7 +83,7 @@ void Parser::Statement()
 }
 
 /************************************************************************************************
- ************************************** Statements *********************************************
+ ********************************** Conditions & Loops *****************************************
 ************************************************************************************************/
 
 /* If Statement:
@@ -169,6 +175,34 @@ void Parser::Else_Statement()
     py2PlusCode += "\n}\n";
 }
 
+/* While Statement:
+ * <while_statement> -> "while" <expression_statement> ":" <statements>
+*/
+void Parser::While_Statement()
+{
+    Match("while");
+    if (lookAheadToken == "(")      /* If the next token is an opening parenthesis */
+        Match("(");
+    else
+        py2PlusCode += " (";
+    
+    Conditional_Statement();
+
+    if (lookAheadToken == ")")      /* If the next token is an opening parenthesis */
+        Match(" )");
+    else
+        py2PlusCode += ")";
+        
+    /* If the next token is a colon */
+    if (lookAheadToken == ":")
+        IncrementToken();
+    else
+        Match(":");
+    py2PlusCode += "\n{\t";
+    Statements();
+    py2PlusCode += "\n}\n";
+}
+
 /* Condtional Statement
  * <conditional_statement> -> <expression_statement> <conditional_operator> <expression_statement>
 */
@@ -181,6 +215,10 @@ void Parser::Conditional_Statement()
         Error();
     Expression_Statement();
 }
+
+/************************************************************************************************
+ ******************************** Mathematical Statements **************************************
+************************************************************************************************/
 
 /* Expression Statement
  * <expression_statement>   -> <term> <expression_rest>
@@ -264,26 +302,6 @@ void Parser::Assignment_Statement()
     py2PlusCode += ";\n";
 }
 
-void Parser::Print_Statement()
-{
-    if(lookAheadToken == "print")
-    {
-        IncrementToken();
-        py2PlusCode += "cout << ";
-    }
-    else
-        Error();
-    Match("(");
-    Match("\"");
-    while(lookAheadToken != "\"")
-    {
-        py2PlusCode += lookAheadToken;
-        IncrementToken();
-    }
-    Match(")");
-    py2PlusCode += ";\n";
-}
-
 /************************************************************************************************
  ************************************** Identifiers ********************************************
 ************************************************************************************************/
@@ -308,10 +326,15 @@ bool Parser::NameIdentifier(string id)
 bool Parser::NumberIdentifier(string num)
 {
     bool status = true;
-
-    regex nameRegex("-?[0-9]+.?[0-9]*");
-    regex_match(num, nameRegex) ? status = true : status = false;
-
+    
+    /* Check if the string starts with a 0 and has more than one character */
+    if (num.size() > 1 && num[0] == '0')
+        status = false;
+    else
+    {
+        regex nameRegex("[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?");
+        regex_match(num, nameRegex) ? status = true : status = false;
+    }
     return status;
 }
 

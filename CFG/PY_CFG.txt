@@ -10,7 +10,7 @@
 
 <for_statement> 	   -> "for" <name_identifier> "in" <expression_statement> ":" <statements> <else_statement>?
 
-<while_statement>    -> "while" <expression_statement> ":" <statements> <else_statement>?
+<while_statement>    -> "while" <conditional_statement> ":" <statements>
 
 <do_while_statement> -> "while" ":" <statements> "until" <expression_statement>
 

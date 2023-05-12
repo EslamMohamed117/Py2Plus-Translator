@@ -1,7 +1,4 @@
-if abc > ax:
-  ax = ax + 100
-  abc = abc + ax - 50
-elif abcd < abc:
-  abc = 0
-else:
-	HELLOWORLD = HELLOWORLD +1
+x = x10x
+while x<10:
+    x = x+1
+    print(x)

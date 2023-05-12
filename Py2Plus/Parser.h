@@ -13,6 +13,7 @@ class Parser
 private:
     /* TO BE ADJUSTED */
     bool condition_if = false;
+
     Parser_t parse;
     string py2PlusCode;
     string lookAheadToken;
@@ -32,7 +33,7 @@ private:
     void Else_Statement();
     void For_Statement();
     void While_Statement();
-    void DoWhile_Statement();
+    //void DoWhile_Statement();
 
     /* Print Statement */
     void Print_Statement();

@@ -32,8 +32,8 @@ Py2Plus::Py2Plus(QWidget *parent)
 		output += "[" + token.token + "]\t" + token.tokenValue + "\n";
 	QMessageBox::information(this, "Button Clicked", output.c_str());
 	/*
-	regex regex("-?[0-9]+.?[0-9]*");//[a-zA-Z_][a-zA-Z0-9_]*   -   ^[a-zA-Z_][a-zA-Z0-9_]*$   -?[0-9]*.?[0-9]+[eE][-+]?[0-9]+
-	string str1 = ".123";
+	regex regex("[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?");//[a-zA-Z_][a-zA-Z0-9_]*   -   ^[a-zA-Z_][a-zA-Z0-9_]*$   -?[0-9]*.?[0-9]+[eE][-+]?[0-9]+
+	string str1 = "02";
 	regex_match(str1, regex) ? str1 = "match" : str1 = "no match";
 	QMessageBox::information(this, "Button Clicked", str1.c_str());
 	*/
