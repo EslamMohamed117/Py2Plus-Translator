@@ -12,6 +12,12 @@ bool Scanner::IsOperator(char c) {
     return operators.find(c) != std::string::npos;
 }
 
+bool Scanner::IsSeprator(char c) {
+    static const std::string separators = ".,:;()[]{}";
+    return separators.find(c) != std::string::npos;
+}
+
+
 bool Scanner::Tokenize()
 {
     try {
@@ -41,10 +47,6 @@ TokenInfo Scanner::ClassifyToken(const std::string& tokenStr) {
         return { tokens[TOKEN_WHITESPACE], tokenStr };
     }
 
-    if (!std::isalnum(c) && !IsOperator(c) && c != '_') {
-        return { tokens[TOKEN_INVALID], tokenStr };
-    }
-
     if (std::isdigit(c)) {
         std::string value(tokenStr);
         while (value.size() < tokenStr.size() && std::isdigit(tokenStr[value.size()])) {
@@ -66,12 +68,13 @@ TokenInfo Scanner::ClassifyToken(const std::string& tokenStr) {
 
     static const std::string separators = ".,:;()[]{}";
     if (separators.find(c) != std::string::npos) {
-        std::string value(tokenStr);
-        std::string tokenStr = "TOKEN_SEPARATOR_" + value;
-        Token token = static_cast<Token>(std::hash<std::string>{}(tokenStr));
-        return { tokens[token], value };
+        return { tokens[TOKEN_SEPARATOR], tokenStr};
     }
 
+    if (!std::isalnum(c) && !IsSeprator(c) && !IsOperator(c) && c != '_') {
+        return { tokens[TOKEN_INVALID], tokenStr };
+    }
+	
     return { tokens[TOKEN_INVALID], tokenStr };
 }
 

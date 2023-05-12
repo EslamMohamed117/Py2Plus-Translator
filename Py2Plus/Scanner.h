@@ -89,6 +89,7 @@ class Scanner
 private:
     std::string code;
     bool IsOperator(char c);
+    bool IsSeprator(char c);
     std::vector<TokenInfo> tokenList;
 public:
     Scanner(std::string code) { this->code = code; }
