@@ -1,22 +1,26 @@
-<statement> 	   -> <if_statement> | <for_statement> | <while_statement> | <do_while_statement> | <assignment_statement>
+<statement> 	         -> <if_statement> | <for_statement> | <while_statement> | <do_while_statement> | <assignment_statement>
 
-<if_statement>       -> "if" <conditional_statement> ":" <statements> <if_opt_stmt>*
+<if_statement>       	   -> "if" <conditional_statement> ":" <statements> <if_opt_stmt>*
 
-<if_opt_stmt>			 -> <elif_statement> <if_opt_stmt> | <else_statement> | epslion
+<if_opt_stmt>	 	   -> <elif_statement> <if_opt_stmt> | <else_statement> | epslion
 
-<elif_statement>     -> "elif" <conditional_statement> ":" <statements> | epslion
+<elif_statement>           -> "elif" <conditional_statement> ":" <statements> | epslion
 
-<else_statement>     -> "else" ":" <statements>
+<else_statement>           -> "else" ":" <statements>
 
-<for_statement> 	   -> "for" <name_identifier> "in" <expression_statement> ":" <statements> <else_statement>?
+<for_statement> 	         -> "for" <name_identifier> "in" <range> ":" <statements>
 
-<while_statement>    -> "while" <conditional_statement> ":" <statements>
+<range>			   -> "range("	<number_identifier> <op_range>	")"
 
-<do_while_statement> -> "while" ":" <statements> "until" <expression_statement>
+<op_range>			   -> "," 	<number_identifier>  <op_range>	| epsilon
+
+<while_statement>    	   -> "while" <conditional_statement> ":" <statements>
+
+<do_while_statement>       -> "while" ":" <statements> "until" <expression_statement>
 
 <statements> 	         -> <statement> <statements> | epslion
 
-<conditional_statement>  -> <expression_statement> <conditional_operator> <expression_statement>
+<conditional_statement>    -> <expression_statement> <conditional_operator> <expression_statement>
 
 <assignment_statement> 	   -> <name_identifier> "=" <expression_statement>
 
@@ -24,18 +28,18 @@
 
 <expression_rest>		   -> <addsub_operator> <term_statement> <expression_rest> | epslion
 
-<term_statement> 		   		-> <factor_statement> <term_rest>
+<term_statement> 		   -> <factor_statement> <term_rest>
 
-<term_rest>		   -> <muldiv_operator> <factor_statement> <term_rest> | epslion
+<term_rest>		   	   -> <muldiv_operator> <factor_statement> <term_rest> | epslion
 
-<factor_statement> 		   -> <name_identifier> | <number_identifier> | "(" <expression_statement> ")"
+<factor_statement>   	   -> <name_identifier> | <number_identifier> | "(" <expression_statement> ")"
 
-<name_identifier> 		   -> [a-zA-Z_][a-zA-Z0-9_]*
+<name_identifier> 	   -> [a-zA-Z_][a-zA-Z0-9_]*
 
-<number_identifier> 		   -> -?[0-9]+.?[0-9]*
+<number_identifier>  	   -> -?[0-9]+.?[0-9]*
 
 <addsub_operator> 	   -> "+" | "-"
 
-<muldiv_operator>      -> "*" | "/" | "%"
+<muldiv_operator>     	   -> "*" | "/" | "%"
 
 <conditional_operator>     -> "<" | ">" | "==" | "!=" | "<=" | ">="
