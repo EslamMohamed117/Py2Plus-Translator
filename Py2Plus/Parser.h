@@ -32,6 +32,8 @@ private:
     void Elif_Statement();
     void Else_Statement();
     void For_Statement();
+    void Range(string iterator);
+    void Op_Range(string iterator);
     void While_Statement();
     //void DoWhile_Statement();
 

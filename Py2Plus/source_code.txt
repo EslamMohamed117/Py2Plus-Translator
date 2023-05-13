@@ -1,4 +1,7 @@
-x = x10x
-while x<10:
-    x = x+1
-    print(x)
+for x in range(10, 20):
+	if x > 5:
+		x = abc+d
+	elif x < 3:
+		y = 5+9
+	else:
+		z = a * b

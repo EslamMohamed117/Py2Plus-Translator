@@ -31,7 +31,7 @@ void Parser::IncrementToken()
     if (currentToken < lookAheadTokenList.size() - 1)
         lookAheadToken = lookAheadTokenList[++currentToken].tokenValue;
     else
-        return;
+        lookAheadToken = "";    /* Clear the lookahead (epsilon) */
 }
 
 /************************************************************************************************
@@ -71,7 +71,7 @@ void Parser::Statement()
         condition_if = false;
     }
     else if (lookAheadToken == "for")
-        ;//For_Statement();
+        For_Statement();
     else if (lookAheadToken == "while")
         While_Statement();
     else if (lookAheadToken == "do")
@@ -215,6 +215,166 @@ void Parser::Conditional_Statement()
         Error();
     Expression_Statement();
 }
+
+/*
+ * For Statement:
+ * CFG: <for_statement> -> "for" <name_identifier> "in" <range> ":" <statements>
+ * NOTES: Only works for the following syntax:
+ * 	      -> for identifier in range(num):
+ *        -> for identifier in range(num, num):
+ * 	      -> for identifier in range(num, num, num):
+ *        Only increamenting loop is supported for now  
+ */
+void Parser::For_Statement() {
+    /* Declare the iterator */
+    string iterator = "";
+
+    /* Match 'for' keyword */
+    Match("for");
+
+    /* Match the name identifier */
+    if (NameIdentifier(lookAheadToken) && (lookAheadTokenList[currentToken].token == tokens[TOKEN_STRING])) {
+        /* Append the for loop syntax: for( int */
+        py2PlusCode += "( int ";
+        iterator = lookAheadToken;
+        Match(lookAheadToken);  /* for( int var */
+    }
+    else
+    {
+        Error();
+    }
+    
+    /* Match 'in' keyword */
+    if( lookAheadToken == "in" ) {
+		IncrementToken();
+	}
+    else
+    {
+		Error();
+	}
+
+    /* range keyword parsing */
+    Range(iterator);
+
+    /* Match the colon */
+    if (lookAheadToken == ":") {
+		IncrementToken();
+	}
+    else {
+		Error();
+	}
+    
+    /* Append the starting curly braces */
+	py2PlusCode += "\n{\t";
+
+    /* Continue parsing statements */
+	Statements();
+
+    /* Append the closing curly braces */
+	py2PlusCode += "\n}\n";
+}
+
+/* Range Statement
+ * <range> -> "range" "(" <number_identifier> <op_range> ")"
+ * NOTES: Part of the For_Statement CFG
+ */
+void Parser::Range(string iterator) {
+    if (lookAheadToken == "range") {
+        /* Match range keyword */
+        IncrementToken();
+
+        /* Match opening parenthesis */
+        if (lookAheadToken == "(") {
+            IncrementToken();
+        }
+        else {
+			Error();
+		}
+
+        /* Match the number identifier */
+        if (NumberIdentifier(lookAheadToken) && lookAheadTokenList[currentToken + 1].tokenValue != ",") {
+
+            py2PlusCode += " = 0; " + iterator + " < "; /* for( int var = 0; var < */
+
+            Match(lookAheadToken);                      /* for( int var = 0; var < num*/
+
+            py2PlusCode += "; " + iterator + "++";      /* for( int var = 0; var < num; var++ */
+        }
+        else if (NumberIdentifier(lookAheadToken) && lookAheadTokenList[currentToken + 1].tokenValue == ",") {
+
+            py2PlusCode += " = " + lookAheadToken + "; " + iterator + " < ";   /* for( int var = num1; var < */ 
+
+            IncrementToken();
+
+            /* Parse optional range parameters (step parameter) */
+            Op_Range(iterator);
+		}
+        else {
+			Error();
+        }
+
+        /* Match closing parenthesis */
+        if (lookAheadToken == ")") {
+            Match(lookAheadToken);
+        }
+        else {
+            Error();
+        }
+    }
+    else {
+        Error();
+    }
+}
+
+/* Optional Range Statement
+ * <op_range> -> "," <number_identifier> <op_range> | epsilon
+ * NOTES: Part of the For_Statement CFG
+ */
+void Parser::Op_Range(string iterator) {
+	/* If the next token is a comma */
+    if (lookAheadToken == ",") {
+		/* Match the comma */
+        IncrementToken();
+
+		/* Match the number identifier */
+        if (NumberIdentifier(lookAheadToken)) {
+			Match(lookAheadToken);          /* for( int var = num1; var < num2*/ 
+		}
+        else {
+			Error();
+		}
+
+		/* Append the ending syntax */
+        py2PlusCode += "; " + iterator;     /* for( int var = num1; var < num2; var*/ 
+
+        if (lookAheadToken != ",") {
+            py2PlusCode += "++";            /* for( int var = num1; var < num2; var++ */ 
+        }
+        else {
+
+            if (lookAheadToken == ",") {
+				IncrementToken();           
+			}
+            else {
+				Error();
+			}
+
+            py2PlusCode += "+=";            /* for( int var = num1; var < num2; var +=*/
+
+            /* Match the number identifier */
+            if (NumberIdentifier(lookAheadToken)) {
+                Match(lookAheadToken);      /* for( int var = num1; var < num2; var += num3*/
+            }
+            else {
+                Error();
+            }
+		}
+	}
+    else {
+        return;
+	}
+}
+
 
 /************************************************************************************************
  ******************************** Mathematical Statements **************************************
