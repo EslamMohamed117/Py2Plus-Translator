@@ -13,6 +13,7 @@ class Parser
 private:
     /* TO BE ADJUSTED */
     bool condition_if = false;
+    int currentLvl = -1;
 
     Parser_t parse;
     string py2PlusCode;
@@ -58,6 +59,9 @@ private:
 
     /* Error handling */
     void Error();
+
+    int currentLvlIndentation();
+    void makeIndentation(int lvl);
 
 public:
     Parser(vector<TokenInfo> tokenList);

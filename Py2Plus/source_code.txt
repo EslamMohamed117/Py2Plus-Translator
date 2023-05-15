@@ -1,6 +1,8 @@
 for x in range(10, 20):
 	if x > 5:
 		x = abc+d
+		while x>10:
+			x = 10
 	elif x < 3:
 		y = 5+9
 	else:
