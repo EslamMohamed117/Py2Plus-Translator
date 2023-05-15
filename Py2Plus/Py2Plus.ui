@@ -229,9 +229,9 @@ border-radius: 20px;
      <widget class="QLabel" name="inputLabel">
       <property name="geometry">
        <rect>
-        <x>140</x>
+        <x>19</x>
         <y>450</y>
-        <width>190</width>
+        <width>411</width>
         <height>40</height>
        </rect>
       </property>
@@ -242,7 +242,7 @@ border-radius: 20px;
        </font>
       </property>
       <property name="text">
-       <string>Pending Translation</string>
+       <string/>
       </property>
      </widget>
      <widget class="QLabel" name="inputTitle">

@@ -29,11 +29,13 @@ Py2Plus::Py2Plus(QWidget *parent)
 
 	// hide compnenets
 	ui.codeInput->setVisible(false);
-	ui.inputLabel->setVisible(false);
 	ui.outputLabel->setVisible(false);
 
 	// set editability to false
 	ui.outputText->setReadOnly(true);
+	
+	// set alignment of inputLabel to center
+	ui.inputLabel->setAlignment(Qt::AlignCenter);
 
 
 	// Connect the button clicked signal to a slot
@@ -112,42 +114,73 @@ void Py2Plus::onTranslateClicked()
 	{
 		// get file path from gui
 		string pathname = ui.borwsePath->text().toStdString();
-		
-		// read the file
-		Files* file = new Files(pathname, 'r');
-		file->readFromFile();
-		
-		// tokenize the code
-		Scanner scanner(file->getCode());
-		scanner.Tokenize();
-		
-		// parse the code
-		Parser parser(scanner.GetTokenList());
-		myParse = parser.Parse();
-		
-		if (myParse.errorStatus == true)
-			ui.inputLabel->setText(QString::fromStdString(errorMessage));
-		
-		ui.outputText->setText(QString::fromStdString(myParse.py2PlusCode));
+		if (pathname.size() != 0)
+		{
+			// read the file
+			Files* file = new Files(pathname, 'r');
+			file->readFromFile();
+
+			// tokenize the code
+			Scanner scanner(file->getCode());
+
+			scanner.Tokenize();
+			ui.inputLabel->setText("Pending trasnlation...");
+
+			// parse the code
+			Parser parser(scanner.GetTokenList());
+			myParse = parser.Parse();
+
+			if (myParse.errorStatus == true)
+			{
+				ui.inputLabel->setText(QString::fromStdString(errorMessage));
+				return;
+			}
+
+			ui.inputLabel->setText("Translation successful");
+			ui.outputText->setText(QString::fromStdString(myParse.py2PlusCode));
+			ui.outputLabel->setVisible(true);
+			Files* outFile = new Files("target_code.txt", 'w');
+			outFile->writeToFile(myParse.py2PlusCode);
+		}
+		else
+		{
+			ui.outputLabel->setVisible(false);
+			ui.inputLabel->setText("Please Enter a Valid Path");
+			return;
+		}
 
 	}
 	else
 	{
 		string code = ui.inputText->toPlainText().toStdString();
-		
+		if (code.size() != 0)
+		{
+			// tokenize the code
+			Scanner scanner(code);
+			scanner.Tokenize();
+			ui.inputLabel->setText("Pending trasnlation...");
 
-		// tokenize the code
-		Scanner scanner(code);
-		scanner.Tokenize();
+			// parse the code
+			Parser parser(scanner.GetTokenList());
+			myParse = parser.Parse();
 
-		// parse the code
-		Parser parser(scanner.GetTokenList());
-		myParse = parser.Parse();
-
-		if (myParse.errorStatus == true)
-			ui.inputLabel->setText(QString::fromStdString(errorMessage));
-
-		ui.outputText->setText(QString::fromStdString(myParse.py2PlusCode));
-
+			if (myParse.errorStatus == true)
+			{
+				ui.inputLabel->setText(QString::fromStdString(errorMessage));
+				return;
+			}
+			
+			ui.inputLabel->setText("Translation successful");
+			ui.outputText->setText(QString::fromStdString(myParse.py2PlusCode));
+			ui.outputLabel->setVisible(true);
+			Files* outFile = new Files("target_code.txt", 'w');
+			outFile->writeToFile(myParse.py2PlusCode);
+		}
+		else
+		{
+			ui.outputLabel->setVisible(false);
+			ui.inputLabel->setText("Please write some code");
+			return;
+		}
 	}
 }
