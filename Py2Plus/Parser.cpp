@@ -136,7 +136,10 @@ void Parser::If_optStmt()
 */
 void Parser::Elif_Statement()
 {
-    Match("elif");
+    IncrementToken();   /* elif */
+
+    py2PlusCode += "else if ";      /* Parse elif word */
+
     if (lookAheadToken == "(")      /* If the next token is an opening parenthesis */
         Match("(");
     else
