@@ -604,38 +604,32 @@ Parser_t Parser::Parse()
     return parse;
 }
 
-/*
-* return the number of indents, and add the indents to the py2PlusCode
-*/
 int Parser:: currentLvlIndentation() {
     int lvl = 0;
     switch (currentLvl) {
-        case 0: lvl = 0;                                                                                                    break;
-        case 1: lvl = 1;  py2PlusCode += indendent;                                                                         break;
-        case 2: lvl = 2;  py2PlusCode += indendent + indendent;                                                             break;
-        case 3: lvl = 3;  py2PlusCode += indendent + indendent + indendent;                                                 break;
-        case 4: lvl = 4;  py2PlusCode += indendent + indendent + indendent +indendent;                                      break;
-        case 5: lvl = 5;  py2PlusCode += indendent + indendent + indendent +indendent + indendent;                          break;
-        case 6: lvl = 6;  py2PlusCode += indendent + indendent + indendent +indendent + indendent + indendent;              break;
-        case 7: lvl = 7;  py2PlusCode += indendent + indendent + indendent +indendent + indendent + indendent + indendent;  break;
+        case 0: lvl = 0;                                    break;
+        case 1: lvl = 1;  py2PlusCode += "\t";              break;
+        case 2: lvl = 2;  py2PlusCode += "\t\t";            break;
+        case 3: lvl = 3;  py2PlusCode += "\t\t\t";          break;
+        case 4: lvl = 4;  py2PlusCode += "\t\t\t\t";        break;
+        case 5: lvl = 5;  py2PlusCode += "\t\t\t\t\t";      break;
+        case 6: lvl = 6;  py2PlusCode += "\t\t\t\t\t\t";    break;
+        case 7: lvl = 7;  py2PlusCode += "\t\t\t\t\t\t\t";  break;
         default: break;
     }
     return lvl;
 }
 
-/*
-* Add the indents to the py2PlusCode
-*/
 void Parser::makeIndentation(int lvl) {
     switch (lvl) {
-        case 0: lvl = 0;                                                                                                     break;
-        case 1: lvl = 1;  py2PlusCode += indendent;                                                                          break;
-        case 2: lvl = 2;  py2PlusCode += indendent + indendent;                                                              break;
-        case 3: lvl = 3;  py2PlusCode += indendent + indendent + indendent;                                                  break;
-        case 4: lvl = 4;  py2PlusCode += indendent + indendent + indendent + indendent;                                      break;
-        case 5: lvl = 5;  py2PlusCode += indendent + indendent + indendent + indendent + indendent;                          break;
-        case 6: lvl = 6;  py2PlusCode += indendent + indendent + indendent + indendent + indendent + indendent;              break;
-        case 7: lvl = 7;  py2PlusCode += indendent + indendent + indendent + indendent + indendent + indendent + indendent;  break;
-        default: break;
+        case 0:                                     break;
+		case 1:  py2PlusCode += "\t";               break;
+		case 2:  py2PlusCode += "\t\t";             break;
+		case 3:  py2PlusCode += "\t\t\t";           break;
+		case 4:  py2PlusCode += "\t\t\t\t";         break;
+        case 5:  py2PlusCode += "\t\t\t\t\t";       break;
+        case 6:  py2PlusCode += "\t\t\t\t\t\t";     break;
+        case 7:  py2PlusCode += "\t\t\t\t\t\t\t";   break;
+		default: break;
     }
 }

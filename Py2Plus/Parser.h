@@ -14,7 +14,6 @@ private:
     /* TO BE ADJUSTED */
     bool condition_if = false;
     int currentLvl = -1;
-    const string indendent = "    ";    /* 4 white spaces */
 
     Parser_t parse;
     string py2PlusCode;
