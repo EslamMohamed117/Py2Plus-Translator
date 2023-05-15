@@ -42,7 +42,7 @@ Py2Plus::Py2Plus(QWidget *parent)
 	connect(ui.translateButton, &QPushButton::clicked, this, &Py2Plus::onTranslateClicked);
 	
 	// ---------------------------------------------------------------------------------
-	
+	/*
 	// ------------------ THIS PART IS USED FOR TESTING PURPOSES ONLY ------------------
 	Files* file = new Files("source_code.txt", 'r');
     file->readFromFile();
@@ -50,17 +50,17 @@ Py2Plus::Py2Plus(QWidget *parent)
 	scanner.Tokenize();
 	Parser parser(scanner.GetTokenList());
 	string output = "", cppCode = "";
-	/* Print Python Code */
+	// Print Python Code 
 	for (TokenInfo token : scanner.GetTokenList())
 		output += "[" + token.token + "]\t" + token.tokenValue + "\n";
 	QMessageBox::information(this, "Button Clicked", output.c_str());
-	/*
-	regex regex("[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?");//[a-zA-Z_][a-zA-Z0-9_]*   -   ^[a-zA-Z_][a-zA-Z0-9_]*$   -?[0-9]*.?[0-9]+[eE][-+]?[0-9]+
-	string str1 = "02";
-	regex_match(str1, regex) ? str1 = "match" : str1 = "no match";
-	QMessageBox::information(this, "Button Clicked", str1.c_str());
-	*/
-	/* Print Converted Code */
+	
+	//regex regex("[-+]?[0-9]*.?[0-9]+([eE][-+]?[0-9]+)?");//[a-zA-Z_][a-zA-Z0-9_]*   -   ^[a-zA-Z_][a-zA-Z0-9_]*$   -?[0-9]*.?[0-9]+[eE][-+]?[0-9]+
+	//string str1 = "02";
+	//regex_match(str1, regex) ? str1 = "match" : str1 = "no match";
+	//QMessageBox::information(this, "Button Clicked", str1.c_str());
+	
+	// Print Converted Code 
 	myParse = parser.Parse();
 	cppCode = myParse.py2PlusCode;
 	if(myParse.errorStatus == true)
@@ -69,6 +69,7 @@ Py2Plus::Py2Plus(QWidget *parent)
 		QMessageBox::information(this, "Button Clicked", cppCode.c_str());
 
 	// ---------------------------------------------------------------------------------
+	*/
 }
 
 Py2Plus::~Py2Plus()
@@ -109,12 +110,44 @@ void Py2Plus::onTranslateClicked()
 {
 	if (this->isBrowsed)
 	{
+		// get file path from gui
 		string pathname = ui.borwsePath->text().toStdString();
+		
+		// read the file
+		Files* file = new Files(pathname, 'r');
+		file->readFromFile();
+		
+		// tokenize the code
+		Scanner scanner(file->getCode());
+		scanner.Tokenize();
+		
+		// parse the code
+		Parser parser(scanner.GetTokenList());
+		myParse = parser.Parse();
+		
+		if (myParse.errorStatus == true)
+			ui.inputLabel->setText(QString::fromStdString(errorMessage));
+		
+		ui.outputText->setText(QString::fromStdString(myParse.py2PlusCode));
 
 	}
 	else
 	{
 		string code = ui.inputText->toPlainText().toStdString();
+		
+
+		// tokenize the code
+		Scanner scanner(code);
+		scanner.Tokenize();
+
+		// parse the code
+		Parser parser(scanner.GetTokenList());
+		myParse = parser.Parse();
+
+		if (myParse.errorStatus == true)
+			ui.inputLabel->setText(QString::fromStdString(errorMessage));
+
+		ui.outputText->setText(QString::fromStdString(myParse.py2PlusCode));
 
 	}
 }
