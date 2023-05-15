@@ -153,6 +153,9 @@ void Py2Plus::onTranslateClicked()
 	else
 	{
 		string code = ui.inputText->toPlainText().toStdString();
+		if (std::all_of(code.begin(), code.end(), [](char c) { return std::isspace(c); })) {
+			return;
+		}
 		if (code.size() != 0)
 		{
 			// tokenize the code
