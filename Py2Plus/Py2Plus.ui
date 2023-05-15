@@ -257,6 +257,7 @@ border-radius: 20px;
       <property name="font">
        <font>
         <pointsize>17</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
@@ -484,6 +485,7 @@ border-radius: 20px;</string>
       <property name="font">
        <font>
         <pointsize>17</pointsize>
+        <bold>true</bold>
        </font>
       </property>
       <property name="text">
