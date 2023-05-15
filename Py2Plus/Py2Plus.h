@@ -11,6 +11,12 @@ public:
     Py2Plus(QWidget *parent = nullptr);
     ~Py2Plus();
 
+private slots:
+    void onSwitchButtonClicked();
+    void onBrowseClicked();
+    void onTranslateClicked();
+	
 private:
-    Ui::Py2PlusClass ui;
+    Ui::Py2Plus ui;
+    bool isBrowsed;
 };

@@ -93,8 +93,6 @@
   <ItemGroup>
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Scanner.cpp" />
-    <QtRcc Include="Py2Plus.qrc" />
-    <QtUic Include="Py2Plus.ui" />
     <QtMoc Include="Py2Plus.h" />
     <ClCompile Include="Files.cpp" />
     <ClCompile Include="Py2Plus.cpp" />
@@ -107,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="source_code.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Py2Plus.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Py2Plus.qrc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

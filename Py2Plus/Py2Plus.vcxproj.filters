@@ -23,12 +23,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="Py2Plus.qrc">
-      <Filter>Resource Files</Filter>
-    </QtRcc>
-    <QtUic Include="Py2Plus.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtMoc Include="Py2Plus.h">
       <Filter>Header Files</Filter>
     </QtMoc>
@@ -65,5 +59,15 @@
     <Text Include="source_code.txt">
       <Filter>Resource Files</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="Py2Plus.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="Py2Plus.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
   </ItemGroup>
 </Project>

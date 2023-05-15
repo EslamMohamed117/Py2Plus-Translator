@@ -1,28 +1,582 @@
-<UI version="4.0" >
- <class>Py2PlusClass</class>
- <widget class="QMainWindow" name="Py2PlusClass" >
-  <property name="objectName" >
-   <string notr="true">Py2PlusClass</string>
-  </property>
-  <property name="geometry" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Py2Plus</class>
+ <widget class="QMainWindow" name="Py2Plus">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>400</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="minimumSize">
+   <size>
+    <width>1024</width>
+    <height>768</height>
+   </size>
+  </property>
+  <property name="windowTitle">
    <string>Py2Plus</string>
-  </property>  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="animated">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="mainWidget">
+   <widget class="QFrame" name="appBar">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1024</width>
+      <height>40</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 255, 255);</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="windowTitle">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>0</y>
+       <width>121</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>19</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Py2Plus</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="buttons">
+     <property name="geometry">
+      <rect>
+       <x>924</x>
+       <y>0</y>
+       <width>100</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QPushButton" name="minimize">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>50</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>24</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border: none;
+}
+
+QPushButton:pressed {
+   background-color: rgb(57, 229, 215);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+}</string>
+      </property>
+      <property name="text">
+       <string>-</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="close">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>0</y>
+        <width>50</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>15</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+    border: none;
+}
+
+QPushButton:pressed {
+   background-color: rgb(57, 229, 215);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+}</string>
+      </property>
+      <property name="text">
+       <string>X</string>
+      </property>
+      <property name="flat">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+   <widget class="QFrame" name="appFrame">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>40</y>
+      <width>1024</width>
+      <height>728</height>
+     </rect>
+    </property>
+    <property name="autoFillBackground">
+     <bool>false</bool>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(128, 255, 231, 255), stop:1 rgba(255, 255, 255, 255));</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="translateButton">
+     <property name="geometry">
+      <rect>
+       <x>422</x>
+       <y>630</y>
+       <width>180</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>18</pointsize>
+      </font>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    border: none;
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+	background-clip: padding-box;
+}
+
+QPushButton:pressed {
+    background-color: rgb(57, 229, 215);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.5);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Translate</string>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QFrame" name="inputFrame">
+     <property name="geometry">
+      <rect>
+       <x>41</x>
+       <y>80</y>
+       <width>450</width>
+       <height>500</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(57, 229, 215);
+border-radius: 20px;
+</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="inputLabel">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>450</y>
+        <width>190</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Pending Translation</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="inputTitle">
+      <property name="geometry">
+       <rect>
+        <x>188</x>
+        <y>10</y>
+        <width>81</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>17</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Python</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="codeInput">
+      <property name="geometry">
+       <rect>
+        <x>29</x>
+        <y>130</y>
+        <width>392</width>
+        <height>301</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 20px;
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QTextEdit" name="inputText">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>392</width>
+         <height>301</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0.5);
+border-radius: 20px;
+padding-left: 15px; 
+padding-right: 15px;
+padding-top: 5px;</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="browseText">
+      <property name="geometry">
+       <rect>
+        <x>299</x>
+        <y>75</y>
+        <width>111</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Browse File</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="switchButton">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>80</y>
+        <width>30</width>
+        <height>30</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 15px;
+background-color: rgb(57, 229, 215);
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QFrame" name="circleFrame">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>75</y>
+        <width>75</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 20px;
+background-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+     <widget class="QFrame" name="browseFrame">
+      <property name="geometry">
+       <rect>
+        <x>29</x>
+        <y>190</y>
+        <width>392</width>
+        <height>80</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLineEdit" name="borwsePath">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>10</y>
+         <width>300</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>11</pointsize>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0.5);
+border-radius: 15px;
+padding-left: 15px; 
+padding-right: 15px;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="browseButton">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>10</y>
+         <width>82</width>
+         <height>60</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>15</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0.5);
+border-radius: 15px;</string>
+       </property>
+       <property name="text">
+        <string>Browse</string>
+       </property>
+      </widget>
+     </widget>
+     <zorder>codeInput</zorder>
+     <zorder>inputLabel</zorder>
+     <zorder>inputTitle</zorder>
+     <zorder>browseText</zorder>
+     <zorder>circleFrame</zorder>
+     <zorder>switchButton</zorder>
+     <zorder>browseFrame</zorder>
+    </widget>
+    <widget class="QFrame" name="outputFrame">
+     <property name="geometry">
+      <rect>
+       <x>532</x>
+       <y>80</y>
+       <width>450</width>
+       <height>500</height>
+      </rect>
+     </property>
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(57, 229, 215);
+border-radius: 20px;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QLabel" name="outputLabel">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>450</y>
+        <width>230</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>16</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Saved to target_code.txt</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="outputTitle">
+      <property name="geometry">
+       <rect>
+        <x>202</x>
+        <y>10</y>
+        <width>51</width>
+        <height>40</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>17</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>C++</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="codeOutput">
+      <property name="geometry">
+       <rect>
+        <x>29</x>
+        <y>70</y>
+        <width>392</width>
+        <height>361</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-radius: 20px;
+</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QTextEdit" name="outputText">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>392</width>
+         <height>361</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>12</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgba(255, 255, 255, 0.5);
+border-radius: 20px;
+padding-left: 15px; 
+padding-right: 15px;
+padding-top: 5px;</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <zorder>inputFrame</zorder>
+    <zorder>translateButton</zorder>
+    <zorder>outputFrame</zorder>
+   </widget>
+   <zorder>appFrame</zorder>
+   <zorder>appBar</zorder>
+  </widget>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources>
-   <include location="Py2Plus.qrc"/>
+  <include location="Py2Plus.qrc"/>
  </resources>
- <connections/>
-</UI>
+ <connections>
+  <connection>
+   <sender>close</sender>
+   <signal>clicked()</signal>
+   <receiver>Py2Plus</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>992</x>
+     <y>15</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>792</x>
+     <y>-4</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>minimize</sender>
+   <signal>clicked()</signal>
+   <receiver>Py2Plus</receiver>
+   <slot>showMinimized()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>906</x>
+     <y>20</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>723</x>
+     <y>-9</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

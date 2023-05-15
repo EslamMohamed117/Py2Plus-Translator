@@ -8,6 +8,9 @@
 
 #include <regex>
 
+#include <QPropertyAnimation>
+#include <QFileDialog>
+
 using namespace std;
 
 
@@ -19,6 +22,26 @@ Py2Plus::Py2Plus(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+	
+	// ------------------ Initializations ----------------------------------------------
+	
+	this->isBrowsed = true;
+
+	// hide compnenets
+	ui.codeInput->setVisible(false);
+	ui.inputLabel->setVisible(false);
+	ui.outputLabel->setVisible(false);
+
+	// set editability to false
+	ui.outputText->setReadOnly(true);
+
+
+	// Connect the button clicked signal to a slot
+	connect(ui.switchButton, &QPushButton::clicked, this, &Py2Plus::onSwitchButtonClicked);
+	connect(ui.browseButton, &QPushButton::clicked, this, &Py2Plus::onBrowseClicked);
+	connect(ui.translateButton, &QPushButton::clicked, this, &Py2Plus::onTranslateClicked);
+	
+	// ---------------------------------------------------------------------------------
 	
 	// ------------------ THIS PART IS USED FOR TESTING PURPOSES ONLY ------------------
 	Files* file = new Files("source_code.txt", 'r');
@@ -50,3 +73,48 @@ Py2Plus::Py2Plus(QWidget *parent)
 
 Py2Plus::~Py2Plus()
 {}
+
+void Py2Plus::onSwitchButtonClicked()
+{
+	QPropertyAnimation* animation = new QPropertyAnimation(ui.switchButton, "geometry");
+	animation->setDuration(200);  // Animation duration in milliseconds
+
+	if (!this->isBrowsed) {
+		animation->setStartValue(QRect(45, ui.switchButton->y(), ui.switchButton->width(), ui.switchButton->height()));
+		animation->setEndValue(QRect(80, ui.switchButton->y(), ui.switchButton->width(), ui.switchButton->height()));
+		ui.switchButton->setStyleSheet("border-radius: 15px; background-color: rgb(57, 229, 215);");
+		this->isBrowsed = true;
+	}
+	else {
+		animation->setStartValue(QRect(80, ui.switchButton->y(), ui.switchButton->width(), ui.switchButton->height()));
+		animation->setEndValue(QRect(45, ui.switchButton->y(), ui.switchButton->width(), ui.switchButton->height()));
+		ui.switchButton->setStyleSheet("border-radius: 15px; background-color:  rgb(191,191,191);");
+		this->isBrowsed = false;
+	}
+	ui.browseFrame->setVisible(this->isBrowsed);
+	ui.codeInput->setVisible(!this->isBrowsed);
+	animation->start(QAbstractAnimation::DeleteWhenStopped);
+}
+
+void Py2Plus::onBrowseClicked()
+{
+	QString filePath = QFileDialog::getOpenFileName(this, tr("Select File"));
+	if (!filePath.isEmpty())
+	{
+		ui.borwsePath->setText(filePath);
+	}
+}
+
+void Py2Plus::onTranslateClicked()
+{
+	if (this->isBrowsed)
+	{
+		string pathname = ui.borwsePath->text().toStdString();
+
+	}
+	else
+	{
+		string code = ui.inputText->toPlainText().toStdString();
+
+	}
+}
