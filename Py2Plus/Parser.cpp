@@ -157,7 +157,7 @@ void Parser::Elif_Statement()
         IncrementToken();
     else
         Match(":");
-    py2PlusCode += "\n{\t";
+    py2PlusCode += "\n{\n\t";
     Statements();
     py2PlusCode += "\n}\n";
 }
@@ -173,7 +173,7 @@ void Parser::Else_Statement()
         IncrementToken();
     else
         Match(":");
-    py2PlusCode += "\n{\t";
+    py2PlusCode += "\n{\n\t";
     Statements();
     py2PlusCode += "\n}\n";
 }
@@ -201,7 +201,7 @@ void Parser::While_Statement()
         IncrementToken();
     else
         Match(":");
-    py2PlusCode += "\n{\t";
+    py2PlusCode += "\n{\n\t";
     Statements();
     py2PlusCode += "\n}\n";
 }
@@ -268,7 +268,7 @@ void Parser::For_Statement() {
 	}
     
     /* Append the starting curly braces */
-	py2PlusCode += "\n{\t";
+	py2PlusCode += "\n{\n\t";
 
     /* Continue parsing statements */
 	Statements();
