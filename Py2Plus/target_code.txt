@@ -1,21 +1,25 @@
-for( int x = 10; x < 20; x++)
+while (x>5)
 {
-	if (x>5)
+	for( int x = 1; x < 5; x++)
 	{
-		x=abc+d;
-		while (x>10)
+		if (x<5)
 		{
-			x=10;
+			y=a;
 		}
-	}
-	else if  (x<3)
-	{
-		y=5+9;
+		else if  (x>6)
+		{
+			z=b;
 
-	}
-	else
-	{
-		z=a*b;
-	
+		}
+		else
+		{
+			c=m;
+			for( int z = 1; z < 10; z+=2)
+			{
+				a=bc;
+				x=z;
+			}
+		
+		}
 	}
 }
