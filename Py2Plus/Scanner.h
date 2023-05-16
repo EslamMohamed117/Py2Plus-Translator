@@ -28,8 +28,8 @@ const std::string tokens[] = {
     "KEYWORD_ELSE",
     "KEYWORD_PRINT",
     "KEYWORD_RETURN",
-    "TOKEN_INDENT", // added
-    "TOKEN_DEDENT" // added
+    "TOKEN_INDENT",
+    "TOKEN_DEDENT"
 };
 
 const std::map<std::string, std::string> keywords = {
@@ -74,17 +74,8 @@ enum Token {
 	KEYWORD_ELSE,
     KEYWORD_PRINT,
     KEYWORD_RETURN,
-    TOKEN_INDENT, // added
-    TOKEN_DEDENT // added
-    //    KEYWORD_GLOBAL,
-    //    KEYWORD_LAMBDA,
-    //    KEYWORD_PASS,
-    //    KEYWORD_RAISE,
-    //    KEYWORD_REP,                        // Unused keywords
-    //    KEYWORD_TRY,
-    //    KEYWORD_WITH,
-    //    KEYWORD_VAR,
-    //    KEYWORD_YIELD
+    TOKEN_INDENT,
+    TOKEN_DEDENT 
 };
 
 struct TokenInfo {

@@ -5,6 +5,11 @@
 #include <fstream>
 using namespace std;
 
+/**
+ * @brief Constructor for the `Files` class.
+ * @param filename The name of the file to open.
+ * @param operation The operation to perform on the file ('r' for reading or 'w' for writing).
+ */
 Files::Files(string filename, char operation)
 {
 	switch (operation)
@@ -23,6 +28,10 @@ Files::Files(string filename, char operation)
 	this->operation = operation;
 }
 
+/**
+ * @brief Reads the content of the input file.
+ * @return A string containing the content of the input file.
+ */
 string Files::getContentFromFile()
 {
 	string content="", line = "";
@@ -31,6 +40,10 @@ string Files::getContentFromFile()
 	return content;
 }
 
+/**
+ * @brief Reads the content of the input file and stores it in the `code` member variable.
+ * @return true if reading is successful, false otherwise.
+ */
 bool Files::readFromFile()
 {
 	if (!this->error)
@@ -42,6 +55,11 @@ bool Files::readFromFile()
 	return false;
 }
 
+/**
+ * @brief Writes the specified content to the output file.
+ * @param content The content to write to the output file.
+ * @return true if writing is successful, false otherwise.
+ */
 bool Files::writeToFile(string content)
 {
 	
@@ -54,6 +72,10 @@ bool Files::writeToFile(string content)
 	return false;
 }
 
+/**
+ * @brief Returns the content of the input file that was read by the `readFromFile()` function.
+ * @return A string containing the content of the input file.
+ */
 string Files::getCode()
 {
 	return this->code;
