@@ -107,3 +107,16 @@ vector<TokenInfo> Scanner::GetTokenList()
 {
     return this->tokenList;
 }
+
+std::string Scanner::removeEmptyLines(std::string input)
+{
+    std::istringstream iss(input);
+    std::ostringstream oss;
+    std::string line;
+    while (std::getline(iss, line))
+    {
+        if (line.find_first_not_of(" \t") != std::string::npos)
+            oss << line << '\n';
+    }
+    return oss.str();
+}

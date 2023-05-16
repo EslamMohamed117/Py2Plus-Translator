@@ -104,4 +104,5 @@ public:
     bool Tokenize();
     TokenInfo ClassifyToken(const std::string& tokenStr);
 	std::vector<TokenInfo> GetTokenList();
+    std::string removeEmptyLines(std::string input);
 };
