@@ -588,7 +588,6 @@ void Parser::indentationParsing() {
         py2PlusCode += "\n";
         makeIndentation(currentLvl);
         py2PlusCode += "{\n";
-        makeIndentation(currentLvl);
         currentLvl++;
     }
     else if (lookAheadToken == "#") {     /* End if indentation */
