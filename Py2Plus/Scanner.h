@@ -5,29 +5,32 @@
 typedef boost::tokenizer<boost::char_separator<char> > boostTokenizer;
 
 const std::string tokens[] = {
-        "TOKEN_END_OF_FILE",
-        "TOKEN_WHITESPACE",
-        "TOKEN_INVALID",
-        "TOKEN_NUMBER",
-        "TOKEN_IDENTIFIER",
-        "TOKEN_STRING",
-        "TOKEN_OPERATOR",
-        "TOKEN_SEPARATOR",
-        "KEYWORD_IMPORT",
-        "KEYWORD_AND",
-        "KEYWORD_OR",
-        "KEYWORD_NONE",
-        "KEYWORD_CONTINUE",
-        "KEYWORD_BREAK",
-        "KEYWORD_FOR",
-        "KEYWORD_IN",
-        "KEYWORD_WHILE",
-        "KEYWORD_DEF",
-        "KEYWORD_IF",
-        "KEYWORD_ELIF",
-		"KEYWORD_ELSE",
-        "KEYWORD_PRINT",
-        "KEYWORD_RETURN" };
+    "TOKEN_END_OF_FILE",
+    "TOKEN_WHITESPACE",
+    "TOKEN_INVALID",
+    "TOKEN_NUMBER",
+    "TOKEN_IDENTIFIER",
+    "TOKEN_STRING",
+    "TOKEN_OPERATOR",
+    "TOKEN_SEPARATOR",
+    "KEYWORD_IMPORT",
+    "KEYWORD_AND",
+    "KEYWORD_OR",
+    "KEYWORD_NONE",
+    "KEYWORD_CONTINUE",
+    "KEYWORD_BREAK",
+    "KEYWORD_FOR",
+    "KEYWORD_IN",
+    "KEYWORD_WHILE",
+    "KEYWORD_DEF",
+    "KEYWORD_IF",
+    "KEYWORD_ELIF",
+    "KEYWORD_ELSE",
+    "KEYWORD_PRINT",
+    "KEYWORD_RETURN",
+    "TOKEN_INDENT", // added
+    "TOKEN_DEDENT" // added
+};
 
 const std::map<std::string, std::string> keywords = {
        {"import"    ,   "KEYWORD_IMPORT"      },
@@ -71,6 +74,8 @@ enum Token {
 	KEYWORD_ELSE,
     KEYWORD_PRINT,
     KEYWORD_RETURN,
+    TOKEN_INDENT, // added
+    TOKEN_DEDENT // added
     //    KEYWORD_GLOBAL,
     //    KEYWORD_LAMBDA,
     //    KEYWORD_PASS,

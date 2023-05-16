@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 using namespace std;
 using namespace boost;
 
@@ -21,10 +22,34 @@ bool Scanner::IsSeprator(char c) {
 bool Scanner::Tokenize()
 {
     try {
-        char_separator<char> sep; // default constructed
-        boostTokenizer tokenList(this->code, sep);
-        for (boostTokenizer::iterator token_iter = tokenList.begin(); token_iter != tokenList.end(); ++token_iter)
-            this->tokenList.push_back(ClassifyToken(*token_iter));
+        std::istringstream iss(this->code);
+        std::string line;
+        int indentLevel = 0;
+        while (getline(iss, line)) {
+            // Count the number of spaces at the start of the line
+            int spaces = 0;
+            while (std::isspace(line[spaces])) spaces++;
+
+            // Calculate the new indentation level
+            int newIndentLevel = spaces / 4; // assuming 4 spaces per indent
+
+            // Generate INDENT and DEDENT tokens
+            while (newIndentLevel > indentLevel) {
+                this->tokenList.push_back({ tokens[TOKEN_INDENT], "@" });
+                indentLevel++;
+            }
+            while (newIndentLevel < indentLevel) {
+                this->tokenList.push_back({ tokens[TOKEN_DEDENT], "#" });
+                indentLevel--;
+            }
+
+            // Tokenize the rest of the line
+            char_separator<char> sep; // default constructed
+            boostTokenizer tokenList(line, sep);
+            for (boostTokenizer::iterator token_iter = tokenList.begin(); token_iter != tokenList.end(); ++token_iter) {
+                this->tokenList.push_back(ClassifyToken(*token_iter));
+            }
+        }
         return true;
     }
     catch (const std::exception& e) {
