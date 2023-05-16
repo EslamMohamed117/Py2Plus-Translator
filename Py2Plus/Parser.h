@@ -13,7 +13,7 @@ class Parser
 private:
     /* TO BE ADJUSTED */
     bool condition_if = false;
-    int currentLvl = -1;
+    int currentLvl = 0;
     const string indendent = "    ";    /* 4 white spaces */
 
     Parser_t parse;
@@ -61,7 +61,7 @@ private:
     /* Error handling */
     void Error();
 
-    int currentLvlIndentation();
+    void indentationParsing();
     void makeIndentation(int lvl);
 
 public:

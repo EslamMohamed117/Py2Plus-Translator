@@ -43,13 +43,18 @@ void Parser::IncrementToken()
 */
 void Parser::Statements()
 {
+    /* Indent based of current level before each statement */
+    makeIndentation(currentLvl);
+
     /* If the current token is not the end of the file */
     /* Check the current statement */
-    if (lookAheadToken == "if" || lookAheadToken == "for" || lookAheadToken == "while" ||
-        (NameIdentifier(lookAheadToken) && (lookAheadTokenList[currentToken].token == tokens[TOKEN_STRING])))
+    if ( lookAheadToken == "if" || lookAheadToken == "for" || lookAheadToken == "while" )
     {
         Statement();
-        //return;
+        Statements();
+    }
+    else if ((NameIdentifier(lookAheadToken) && (lookAheadTokenList[currentToken].token == tokens[TOKEN_STRING]))) {
+        Statement();
         Statements();
     }
     else if ( (lookAheadToken == "else" || lookAheadToken == "elif") && condition_if != true )
@@ -63,7 +68,6 @@ void Parser::Statements()
 */
 void Parser::Statement()
 {
-    currentLvl++;
     /* Check the current statement */
     if (lookAheadToken == "if")
     {
@@ -81,11 +85,9 @@ void Parser::Statement()
         ;//DoWhile_Statement();
     else if (NameIdentifier(lookAheadToken) && (lookAheadTokenList[currentToken].token == tokens[TOKEN_STRING])) {
         Assignment_Statement();
-        currentLvl--;
     }
     else
         Error();
-
 }
 
 /************************************************************************************************
@@ -96,11 +98,7 @@ void Parser::Statement()
  * <if_statement> -> "if" <conditional_statement> ":" <statements> <if_opt_stmt>*
 */
 void Parser::If_Statement()
-{
-    int localIndentation = 0;
-    
-    localIndentation = currentLvlIndentation();    
-
+{ 
     Match("if");
     if (lookAheadToken == "(")      /* If the next token is an opening parenthesis */
         Match("(");
@@ -120,15 +118,11 @@ void Parser::If_Statement()
     else
         Match(":");
 
-    py2PlusCode += "\n";
-    currentLvlIndentation();
-    py2PlusCode += "{\n";
+    indentationParsing();
 
     Statements();
 
-    makeIndentation(localIndentation);
-    currentLvl = localIndentation;
-    py2PlusCode += "}\n";
+    indentationParsing();
     If_optStmt();
 }
 
@@ -148,8 +142,6 @@ void Parser::If_optStmt()
     else
         return;
 
-    currentLvl --;
-
 }
 
 /* Elif Statement:
@@ -157,10 +149,6 @@ void Parser::If_optStmt()
 */
 void Parser::Elif_Statement()
 {
-    int localIndentation = 0;
-
-    localIndentation = currentLvlIndentation();
-
     IncrementToken();   /* elif */
 
     py2PlusCode += "else if ";      /* Parse elif word */
@@ -182,16 +170,12 @@ void Parser::Elif_Statement()
         IncrementToken();
     else
         Match(":");
-    py2PlusCode += "\n";
-    currentLvlIndentation();
-    py2PlusCode += "{\n";
+
+    indentationParsing();
 
     Statements();
 
-    py2PlusCode += "\n";
-    makeIndentation(localIndentation);
-    py2PlusCode += "}\n";
-    currentLvl = localIndentation;
+    indentationParsing();
 }
 
 /* Else Statement:
@@ -199,30 +183,19 @@ void Parser::Elif_Statement()
 */
 void Parser::Else_Statement()
 {
-    int localIndentation = 0;
-
-    localIndentation = currentLvlIndentation();
-
     Match("else");
+
     /* If the next token is a colon */
     if (lookAheadToken == ":")
         IncrementToken();
     else
         Match(":");
-    
-    py2PlusCode += "\n";
-    currentLvlIndentation();
-    py2PlusCode += "{\n";
+
+    indentationParsing();
 
     Statements();
 
-    makeIndentation(localIndentation);
-
-    py2PlusCode += "\n";
-    makeIndentation(localIndentation);
-    py2PlusCode += "}\n";
-    currentLvl = localIndentation;
-
+    indentationParsing();
 }
 
 /* While Statement:
@@ -230,9 +203,6 @@ void Parser::Else_Statement()
 */
 void Parser::While_Statement()
 {
-    int localIndentation = 0;
-
-    localIndentation = currentLvlIndentation();
 
     Match("while");
     if (lookAheadToken == "(")      /* If the next token is an opening parenthesis */
@@ -253,15 +223,12 @@ void Parser::While_Statement()
     else
         Match(":");
 
-    py2PlusCode += "\n";
-    currentLvlIndentation();
-    py2PlusCode += "{\n";
+    indentationParsing();
 
     Statements();
 
-    makeIndentation(localIndentation);
-    py2PlusCode += "}\n";
-    currentLvl = localIndentation;
+    indentationParsing();
+
 }
 
 /* Condtional Statement
@@ -300,10 +267,6 @@ void Parser::For_Statement() {
     /* Declare the iterator */
     string iterator = "";
 
-    int localIndentation = 0;
-
-    localIndentation = currentLvlIndentation();
-
     /* Match 'for' keyword */
     Match("for");
 
@@ -338,19 +301,12 @@ void Parser::For_Statement() {
     else {
 		Error();
 	}
-    
-    /* Append the starting curly braces */
-	py2PlusCode += "\n";
-    currentLvlIndentation();
-    py2PlusCode += "{\n";
+    indentationParsing();
 
     /* Continue parsing statements */
 	Statements();
 
-    /* Append the closing curly braces */
-    makeIndentation(localIndentation);
-	py2PlusCode += "}\n";
-    currentLvl = localIndentation;
+    indentationParsing();
 }
 
 /* Range Statement
@@ -529,8 +485,6 @@ void Parser::Factor_Statement()
 */
 void Parser::Assignment_Statement()
 {
-    int localIndentation = currentLvlIndentation();
-
     if(NameIdentifier(lookAheadToken))
     {
         py2PlusCode += lookAheadToken;
@@ -541,8 +495,6 @@ void Parser::Assignment_Statement()
     else
         Error();
     py2PlusCode += ";\n";
-
-    currentLvl = localIndentation;
 }
 
 /************************************************************************************************
@@ -615,25 +567,6 @@ Parser_t Parser::Parse()
 }
 
 /*
-* return the number of indents, and add the indents to the py2PlusCode
-*/
-int Parser:: currentLvlIndentation() {
-    int lvl = 0;
-    switch (currentLvl) {
-        case 0: lvl = 0;                                                                                                    break;
-        case 1: lvl = 1;  py2PlusCode += indendent;                                                                         break;
-        case 2: lvl = 2;  py2PlusCode += indendent + indendent;                                                             break;
-        case 3: lvl = 3;  py2PlusCode += indendent + indendent + indendent;                                                 break;
-        case 4: lvl = 4;  py2PlusCode += indendent + indendent + indendent +indendent;                                      break;
-        case 5: lvl = 5;  py2PlusCode += indendent + indendent + indendent +indendent + indendent;                          break;
-        case 6: lvl = 6;  py2PlusCode += indendent + indendent + indendent +indendent + indendent + indendent;              break;
-        case 7: lvl = 7;  py2PlusCode += indendent + indendent + indendent +indendent + indendent + indendent + indendent;  break;
-        default: break;
-    }
-    return lvl;
-}
-
-/*
 * Add the indents to the py2PlusCode
 */
 void Parser::makeIndentation(int lvl) {
@@ -648,4 +581,28 @@ void Parser::makeIndentation(int lvl) {
         case 7: lvl = 7;  py2PlusCode += indendent + indendent + indendent + indendent + indendent + indendent + indendent;  break;
         default: break;
     }
+}
+
+void Parser::indentationParsing() {
+    /* Handling indentation: If starting we put "{" with suitable indentation based on current level else we put "}" */
+    if (lookAheadToken == "@") {            /* Start of indentation */
+        py2PlusCode += "\n";
+        makeIndentation(currentLvl);
+        py2PlusCode += "{\n";
+        makeIndentation(currentLvl);
+        currentLvl++;
+    }
+    else if (lookAheadToken == "#") {     /* End if indentation */
+        currentLvl--;
+        py2PlusCode += "\n";
+        makeIndentation(currentLvl);
+        py2PlusCode += "}\n";
+    }
+    else {
+        currentLvl--;
+        py2PlusCode += "\n";
+        makeIndentation(currentLvl);
+        py2PlusCode += "}\n";
+    }
+    IncrementToken();
 }
