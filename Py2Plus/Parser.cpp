@@ -81,8 +81,6 @@ void Parser::Statement()
     else if (lookAheadToken == "while") {
         While_Statement();
     }
-    else if (lookAheadToken == "do")
-        ;//DoWhile_Statement();
     else if (NameIdentifier(lookAheadToken) && (lookAheadTokenList[currentToken].token == tokens[TOKEN_STRING])) {
         Assignment_Statement();
     }
