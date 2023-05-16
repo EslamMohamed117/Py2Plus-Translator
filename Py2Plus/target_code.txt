@@ -1,27 +1,18 @@
-if (x<5 )
+x=5;
+y=2;
+if(x==10)
 {
-    y=a;
-    x=bc;
-    z=a;
+    x=6;
     
 }
-else if  (x>6 )
+else if  (x==5 )
 {
-    z=b;
+    x=10;
     
-}
-else
-{
-    c=m;
-    
-}
-for( int x = 1; x < 10; x++)
-{
-    if (x==y )
     {
-            x=5;
+            if (y=2 )
+        {
+                    y=5;
+            
+        }
         
-    }
-    y=1;
-    
-}

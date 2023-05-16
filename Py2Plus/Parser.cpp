@@ -550,6 +550,7 @@ Parser::Parser(vector<TokenInfo> tokenList)
     py2PlusCode = "";
     lookAheadTokenList = tokenList;
     currentToken = 0;
+    currentLvl = 0;
     parse.py2PlusCode = "";
     parse.errorStatus = false;
 }
