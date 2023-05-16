@@ -43,6 +43,9 @@
     <ClCompile Include="Parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="target_code.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Files.h">
@@ -56,7 +59,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="source_code.txt">
+    <Text Include="source_code.py">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

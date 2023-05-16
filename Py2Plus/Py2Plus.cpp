@@ -111,7 +111,7 @@ void Py2Plus::onTranslateClicked()
 			ui.inputLabel->setText("Translation successful");
 			ui.outputText->setText(QString::fromStdString(scanner.removeEmptyLines(myParse.py2PlusCode)));
 			ui.outputLabel->setVisible(true);
-			Files* outFile = new Files("target_code.txt", 'w');
+			Files* outFile = new Files("target_code.cpp", 'w');
 			outFile->writeToFile(myParse.py2PlusCode);
 		}
 		else
@@ -148,7 +148,7 @@ void Py2Plus::onTranslateClicked()
 			ui.inputLabel->setText("Translation successful");
 			ui.outputText->setText(QString::fromStdString(scanner.removeEmptyLines(myParse.py2PlusCode)));
 			ui.outputLabel->setVisible(true);
-			Files* outFile = new Files("target_code.txt", 'w');
+			Files* outFile = new Files("target_code.cpp", 'w');
 			outFile->writeToFile(myParse.py2PlusCode);
 		}
 		else

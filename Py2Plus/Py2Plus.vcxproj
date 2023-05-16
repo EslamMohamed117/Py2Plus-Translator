@@ -93,6 +93,7 @@
   <ItemGroup>
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Scanner.cpp" />
+    <ClCompile Include="target_code.cpp" />
     <QtMoc Include="Py2Plus.h" />
     <ClCompile Include="Files.cpp" />
     <ClCompile Include="Py2Plus.cpp" />
@@ -104,7 +105,7 @@
     <ClInclude Include="Scanner.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="source_code.txt" />
+    <Text Include="source_code.py" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="Py2Plus.ui" />

@@ -460,7 +460,7 @@ border-radius: 20px;</string>
        <rect>
         <x>120</x>
         <y>450</y>
-        <width>230</width>
+        <width>241</width>
         <height>40</height>
        </rect>
       </property>
@@ -470,7 +470,7 @@ border-radius: 20px;</string>
        </font>
       </property>
       <property name="text">
-       <string>Saved to target_code.txt</string>
+       <string>Saved to target_code.cpp</string>
       </property>
      </widget>
      <widget class="QLabel" name="outputTitle">
