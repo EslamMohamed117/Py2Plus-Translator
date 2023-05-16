@@ -110,9 +110,9 @@ void Parser::If_Statement()
     Conditional_Statement();
 
     if (lookAheadToken == ")")      /* If the next token is an opening parenthesis */
-        Match(" )");
+        Match(")");
     else
-        py2PlusCode += ")";
+        py2PlusCode += " )";
         
     /* If the next token is a colon */
     if (lookAheadToken == ":")
@@ -173,9 +173,9 @@ void Parser::Elif_Statement()
     Conditional_Statement();
 
     if (lookAheadToken == ")")      /* If the next token is an opening parenthesis */
-        Match(" )");
+        Match(")");
     else
-        py2PlusCode += ")";
+        py2PlusCode += " )";
         
     /* If the next token is a colon */
     if (lookAheadToken == ":")
@@ -243,9 +243,9 @@ void Parser::While_Statement()
     Conditional_Statement();
 
     if (lookAheadToken == ")")      /* If the next token is an opening parenthesis */
-        Match(" )");
+        Match(")");
     else
-        py2PlusCode += ")";
+        py2PlusCode += " )";
         
     /* If the next token is a colon */
     if (lookAheadToken == ":")
@@ -270,8 +270,18 @@ void Parser::While_Statement()
 void Parser::Conditional_Statement()
 {
     Expression_Statement();
-    if(lookAheadToken == "<" || lookAheadToken == ">" || lookAheadToken == "==" || lookAheadToken == "!=" || lookAheadToken == "<=" || lookAheadToken == ">=")
-        Match(lookAheadToken);    /* Match the operator "<" or ">" or "==" or "!=" or "<=" or ">=" */
+    if (lookAheadToken == "<" || lookAheadToken == ">")
+    {
+        Match(lookAheadToken);      /* Match the operator "<" or ">" */
+        if(lookAheadToken == "=")   /* If the next token is an equal sign */
+            Match(lookAheadToken);
+    }
+    else if(lookAheadToken == "=")
+    {
+        Match(lookAheadToken);      /* Match the operator "=" */
+        if(lookAheadToken == "=")   /* If the next token is an equal sign */
+            Match(lookAheadToken);
+    }
     else
         Error();
     Expression_Statement();

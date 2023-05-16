@@ -1,25 +1,4 @@
-while (x>5)
+if(x==5)
 {
-	for( int x = 1; x < 5; x++)
-	{
-		if (x<5)
-		{
-			y=a;
-		}
-		else if  (x>6)
-		{
-			z=b;
-
-		}
-		else
-		{
-			c=m;
-			for( int z = 1; z < 10; z+=2)
-			{
-				a=bc;
-				x=z;
-			}
-		
-		}
-	}
+    x=6;
 }
