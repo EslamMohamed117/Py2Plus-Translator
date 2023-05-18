@@ -1,6 +1,8 @@
-<statement> 	         -> <if_statement> | <for_statement> | <while_statement> | <do_while_statement> | <assignment_statement>
+<statements> 	         -> <indentation> <statement> <statements> | epslion
 
-<if_statement>       	   -> "if" <conditional_statement> ":" <statements> <if_opt_stmt>*
+<statement> 	         -> <if_statement> | <for_statement> | <while_statement> | <assignment_statement>
+
+<if_statement>       	   -> "if" <conditional_statement> ":" <statements> <if_opt_stmt>
 
 <if_opt_stmt>	 	   -> <elif_statement> <if_opt_stmt> | <else_statement> | epslion
 
@@ -15,10 +17,6 @@
 <op_range>			   -> "," 	<number_identifier>  <op_range>	| epsilon
 
 <while_statement>    	   -> "while" <conditional_statement> ":" <statements>
-
-<do_while_statement>       -> "while" ":" <statements> "until" <expression_statement>
-
-<statements> 	         -> <statement> <statements> | epslion
 
 <conditional_statement>    -> <expression_statement> <conditional_operator> <expression_statement>
 
@@ -43,3 +41,5 @@
 <muldiv_operator>     	   -> "*" | "/" | "%"
 
 <conditional_operator>     -> "<" | ">" | "==" | "!=" | "<=" | ">="
+
+<indentation>		   -> "    "  |  epslion
